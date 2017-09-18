@@ -37,8 +37,30 @@ public class PatientDao4MySQL implements PatientDao {
 
 	@Override
 	public Patient getPatientById(int patientId) {
-		// TODO Auto-generated method stub
-		return null;
+		connection = JDBCUtils.getConnection();
+		Patient pa = null;
+		String s = " SELECT * FROM Patient WHERE PatientId = ? ";
+		try {
+			pst = connection.prepareStatement(s);
+			pst.setInt(1, patientId);
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				pa = new Patient();
+				pa.setAddress(rs.getString("Address"));
+				pa.setAge(rs.getInt("Age"));
+				pa.setEmail(rs.getString("Email"));
+				pa.setFamilyId(rs.getInt("FamilyId"));
+				pa.setName(rs.getString("Address"));
+				pa.setPatientId(rs.getInt("PatientId"));
+				pa.setSex(rs.getString("Sex"));
+				pa.setTel(rs.getString("Tel"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtils.close(connection, pst, rs);
+		}
+		return pa;
 	}
 
 	@Override

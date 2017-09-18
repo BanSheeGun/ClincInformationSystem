@@ -23,6 +23,27 @@ public class FamilyServlet extends HttpServlet {
 	
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String op = request.getParameter("op");
+		if (op.equals("new")) {
+			RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/WEB-INF/JSP/new/newfamily.jsp");
+			rd.forward(request, response);
+			return;
+		}
+		if (op.equals("create")) {
+			try {
+				String add = request.getParameter("add");
+				Family f = fs.createFamily(add);
+				if (f == null)
+					throw new Exception();
+				request.setAttribute("fid", f.getFamilyId());
+				RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/familyServlet?op=view");
+				rd.forward(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+				RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/WEB-INF/JSP/new/newfamily.jsp");
+				rd.forward(request, response);
+			}
+			return;
+		}
 		if (op.equals("delete")) {
 			try {
 				fs.deleteFamily(Integer.parseInt(request.getParameter("fid"))); 

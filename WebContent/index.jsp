@@ -75,7 +75,7 @@ background: #FFF;
 或
 <a href="#">一个医生账号</a>
 或
-<a href="#">一个家庭账号</a>
+<a href="${pageContext.request.contextPath}/familyServlet?op=new">一个家庭账号</a>
 </font>
 </div>
 </div>
