@@ -37,13 +37,13 @@ public class AdminServlet extends HttpServlet {
 			fn = ftn; 
 		if (fn < 1)
 			fn = 1;
-		List<Family> lf = fs.queryFamilyList(fn-1);
+		List<Family> lf = fs.queryFamilyList((fn-1)*10);
 		PageModel pm = new PageModel();
-		pm.setFn(ftn);
+		pm.setFn(fn);
 		pm.setFtn(ftn);
 		pm.setLf(lf);
 		request.setAttribute("pm", pm);
-		RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/adminServlet");
+		RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/WEB-INF/JSP/adminview.jsp");
 		rd.forward(request, response);
 	}
 

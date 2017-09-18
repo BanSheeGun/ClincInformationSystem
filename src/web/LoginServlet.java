@@ -19,9 +19,7 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#service(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		String type = request.getParameter("type");
-		System.out.println(type);
 		switch (type) {
 			default :
 				RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/index.jsp");
