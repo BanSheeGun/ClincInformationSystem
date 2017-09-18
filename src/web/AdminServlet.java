@@ -1,6 +1,11 @@
 package web;
 
 import java.io.IOException;
+import java.util.*;
+import entity.*;
+import service.*;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,9 +22,29 @@ public class AdminServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#service(HttpServletRequest request, HttpServletResponse response)
 	 */
+	private FamilyService fs = new FamilyService();
+	private int fn = 0;
+	
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		System.out.println("Hi");
+		try {
+			fn = Integer.parseInt(request.getParameter("fn"));
+		} catch (Exception e) {
+			fn = 1;
+		}
+		int ftn = fs.queryFamilyNumbers();
+		ftn = (ftn + 9) / 10;
+		if (fn > ftn)
+			fn = ftn; 
+		if (fn < 1)
+			fn = 1;
+		List<Family> lf = fs.queryFamilyList(fn-1);
+		PageModel pm = new PageModel();
+		pm.setFn(ftn);
+		pm.setFtn(ftn);
+		pm.setLf(lf);
+		request.setAttribute("pm", pm);
+		RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/adminServlet");
+		rd.forward(request, response);
 	}
 
 }
