@@ -38,11 +38,11 @@ public class AdminServlet extends HttpServlet {
 		if (fn < 1)
 			fn = 1;
 		List<Family> lf = fs.queryFamilyList((fn-1)*10);
-		PageModel pm = new PageModel();
-		pm.setFn(fn);
-		pm.setFtn(ftn);
-		pm.setLf(lf);
-		request.setAttribute("pm", pm);
+		FamilyPageModel fpm = new FamilyPageModel();
+		fpm.setFn(fn);
+		fpm.setFtn(ftn);
+		fpm.setLf(lf);
+		request.setAttribute("fpm", fpm);
 		RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/WEB-INF/JSP/adminview.jsp");
 		rd.forward(request, response);
 	}

@@ -15,7 +15,29 @@ public class FamilyDao4MySQL implements FamilyDao {
 	@Override
 	public List<Patient> queryFamilyMembers(int fid) {
 		connection = JDBCUtils.getConnection();
-		List<Patient> p = null;
+		List<Patient> p = new ArrayList<Patient>();
+		String s = " SELECT * FROM Patient where FamilyId = ? ";
+		try {
+			pst = connection.prepareStatement(s);
+			pst.setInt(1, fid);
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				Patient pa = new Patient();
+				pa.setAddress(rs.getString("Address"));
+				pa.setAge(rs.getInt("Age"));
+				pa.setEmail(rs.getString("Email"));
+				pa.setFamilyId(rs.getInt("FamilyId"));
+				pa.setName(rs.getString("Address"));
+				pa.setPatientId(rs.getInt("PatientId"));
+				pa.setSex(rs.getString("Sex"));
+				pa.setTel(rs.getString("Tel"));
+				p.add(pa);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtils.close(connection, pst, rs);
+		}
 		return p;
 	}
 
@@ -134,7 +156,8 @@ public class FamilyDao4MySQL implements FamilyDao {
 	public boolean deleteFamily(int fid) {
 		connection = JDBCUtils.getConnection();
 		boolean isDelete = false;
-		String s = " DELETE FROM Family WHERE ID = " + fid + " ";
+		String s = " DELETE FROM Family WHERE FamilyId = " + fid + " ";
+		System.out.println(s);
 		if (connection != null)
 			try {
 				pst = connection.prepareStatement(s);

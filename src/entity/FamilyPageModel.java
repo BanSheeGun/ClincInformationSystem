@@ -1,6 +1,6 @@
 package entity;
 import java.util.*;
-public class PageModel {
+public class FamilyPageModel {
 	private int fn, ftn;
 	private List<Family> lf;
 	public int getFn() {

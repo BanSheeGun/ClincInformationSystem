@@ -28,10 +28,10 @@ public class FamilyService {
 		return fdao.queryFamilyNumbers();
 	}
 	
-	boolean deleteFamily(int fid) {
+	public boolean deleteFamily(int fid) {
 		return fdao.deleteFamily(fid);
 	}
-	boolean updateFamily(Family f) {
+	public boolean updateFamily(Family f) {
 		return fdao.updateFamily(f);
 	}
 }

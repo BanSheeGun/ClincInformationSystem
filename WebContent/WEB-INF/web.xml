@@ -24,5 +24,12 @@
   <servlet-mapping>
     <servlet-name>adminServlet</servlet-name>
     <url-pattern>/adminServlet</url-pattern>
+  </servlet-mapping>  <servlet>
+    <servlet-name>familyServlet</servlet-name>
+    <servlet-class>web.FamilyServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>familyServlet</servlet-name>
+    <url-pattern>/familyServlet</url-pattern>
   </servlet-mapping>
 </web-app>

@@ -58,7 +58,7 @@ background: #FFF;
 </tr>
 <tr>
 	<th>登录ID</th>
-	<td> <input type="text" name="tel" value="在此输入"/> </td>
+	<td> <input type="text" name="ID" value="在此输入"/> </td>
 </tr>
 <tr>
 	<td> <input type="submit" value="登录"/> </td>

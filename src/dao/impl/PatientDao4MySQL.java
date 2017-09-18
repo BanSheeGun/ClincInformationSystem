@@ -3,24 +3,20 @@ package dao.impl;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
-import dao.*;
-import entity.*;
+import dao.JDBCUtils;
+import dao.PatientDao;
+import entity.Patient;
 
-public abstract class PatientDao4MySQL implements PatientDao {
+public class PatientDao4MySQL implements PatientDao {
 	private Connection connection;
 	private PreparedStatement pst;
 	private ResultSet rs;
 	
-	private String Obation_Current_Page_Data_SQL = 
-			" SELECT * FROM Patient LIMIT ? , ? ";
-	private String Obation_Total_Record_Amount = 
-			" SELECT COUNT(*) AS Amount FROM Patient ";
 	private String Delete_Patient_By_Id_SQL =
 			" DELETE FROM Patient WHERE PatientId = ?  ";
-	private String Get_Patient_By_Id_SQL =
-			" SELECT * FROM Patient WHERE PatientId = ?  ";
-	
 	@Override
 	public boolean deletePatientById(int patientId) {
 		connection = JDBCUtils.getConnection();
@@ -41,57 +37,68 @@ public abstract class PatientDao4MySQL implements PatientDao {
 
 	@Override
 	public Patient getPatientById(int patientId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean updatePatientInfo(Patient patient) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean createPatientInfo(Patient patient) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public List<Patient> getPatient(int start) {
 		connection = JDBCUtils.getConnection();
-		Patient p = null;
-		if (connection != null)
-			try {
-				pst = connection.prepareStatement(Get_Patient_By_Id_SQL);
-				pst.setInt(1, patientId);
-				rs = pst.executeQuery();
-				if (rs.next()) {
-					p = new Patient();
-					p.setPatientId(rs.getInt("PatientId"));
-					p.setFamilyId(rs.getInt("FamilyId"));
-					p.setAge(rs.getInt("Age"));
-					p.setSex(rs.getString("Sex"));
-					p.setName(rs.getString("Name"));
-					p.setTel(rs.getString("Tel"));
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			} finally {
-				JDBCUtils.close(connection, pst, rs);
+		List<Patient> p = new ArrayList<Patient>();
+		String s = " SELECT * FROM Patient LIMIT ? , 10 ";
+		try {
+			pst = connection.prepareStatement(s);
+			pst.setInt(1, start);
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				Patient pa = new Patient();
+				pa.setAddress(rs.getString("Address"));
+				pa.setAge(rs.getInt("Age"));
+				pa.setEmail(rs.getString("Email"));
+				pa.setFamilyId(rs.getInt("FamilyId"));
+				pa.setName(rs.getString("Address"));
+				pa.setPatientId(rs.getInt("PatientId"));
+				pa.setSex(rs.getString("Sex"));
+				pa.setTel(rs.getString("Tel"));
+				p.add(pa);
 			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtils.close(connection, pst, rs);
+		}
 		return p;
 	}
 
 	@Override
-	public boolean updatePatientInfo(Patient p) {
+	public int getPatientNumbers() {
+		int ans = 0;
 		connection = JDBCUtils.getConnection();
-		boolean isUpate = false;
-		if (connection != null)
-			try {
-				String work = " UPDATE Patient SET Name = ? , Sex = ? , Tel = ? , Age = ? , FamilyId = ? WHERE PatientId = ? ";
-				pst = connection.prepareStatement(work);
-				pst.setString(1, p.getName());
-				pst.setString(2, p.getSex());
-				pst.setString(3, p.getTel());
-				pst.setInt(4, p.getAge());
-				pst.setInt(5, p.getFamilyId());
-				pst.setInt(6, p.getPatientId());
-				if (pst.executeUpdate() > 0)
-					isUpate = true;
-			} catch (Exception e) {
-				e.printStackTrace();
-			} finally {
-				JDBCUtils.close(connection, pst, rs);
+		String s = " SELECT COUNT(*) AS Amount FROM Patient ";
+		try {
+			pst = connection.prepareStatement(s);
+			rs = pst.executeQuery();
+			if (rs.next()) {
+				ans = rs.getInt("Amount");
 			}
-		return isUpate;
-	}
-	@Override
-	public boolean createPatientInfo(Patient patient) {
-		connection = JDBCUtils.getConnection();
-		return false;
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtils.close(connection, pst, rs);
+		}
+		return ans;
 	}
 
 }

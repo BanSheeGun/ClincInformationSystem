@@ -31,10 +31,10 @@ background: #FFF;
 </head>
 <body>
 <%
-	PageModel pm = (PageModel)request.getAttribute("pm");
-	int fn = pm.getFn();
-	int ftn = pm.getFtn();
-	List<Family> lf = pm.getLf();
+	FamilyPageModel fpm = (FamilyPageModel)request.getAttribute("fpm");
+	int fn = fpm.getFn();
+	int ftn = fpm.getFtn();
+	List<Family> lf = fpm.getLf();
 %>
 <h1 align="center" > <font size="10" face="微软雅黑">管理员信息页面 </font></h1> 
 <h2 align="center"><font size="6" face="微软雅黑">家庭信息表</font></h2>
@@ -54,8 +54,8 @@ background: #FFF;
 		<td><%=i.getFamilyId() %></td>
 		<td><%=i.getAddress() %></td>
 		<td>
-			<a href="#">详细</a>
-			<a href="#">删除</a>
+			<a href="${pageContext.request.contextPath}/familyServlet?op=view&fid=<%=i.getFamilyId() %>">详细</a>
+			<a href="${pageContext.request.contextPath}/familyServlet?op=delete&fid=<%=i.getFamilyId() %>">删除</a>
 		</td>
 	</tr>
 <%} %>
