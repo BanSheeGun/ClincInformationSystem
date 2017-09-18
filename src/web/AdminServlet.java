@@ -8,17 +8,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class LoginSerlvet
+ * Servlet implementation class AdminServlet
  */
-@WebServlet("/LoginSerlvet")
-public class LoginSerlvet extends HttpServlet {
+@WebServlet("/AdminServlet")
+public class AdminServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+       
 	/**
 	 * @see HttpServlet#service(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		System.out.println("Hi");
 	}
 
 }
