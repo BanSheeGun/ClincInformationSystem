@@ -71,7 +71,7 @@ background: #FFF;
 <div class="cell">
 <font size="4" face="微软雅黑">
 没有账号您可以注册<br />
-<a href="#">一个病人账号</a>
+<a href="${pageContext.request.contextPath}/patientServlet?op=new">一个病人账号</a>
 或
 <a href="#">一个医生账号</a>
 或

@@ -106,8 +106,8 @@ background: #FFF;
 		<td><%=i.getFamilyId() %></td>
 		<td><%=i.getName() %></td>
 		<td>
-			<a href="${pageContext.request.contextPath}/#">详细</a>
-			<a href="${pageContext.request.contextPath}/#">删除</a>
+			<a href="${pageContext.request.contextPath}/patientServlet?op=view&pid=<%=i.getPatientId() %>">详细</a>
+			<a href="${pageContext.request.contextPath}/patientServlet?op=delete&pid=<%=i.getPatientId() %>">删除</a>
 		</td>
 	</tr>
 <%} %>
@@ -150,7 +150,7 @@ background: #FFF;
 		<td><%=i.getClinicId() %></td>
 		<td><%=i.getName() %></td>
 		<td>
-			<a href="${pageContext.request.contextPath}/#">详细</a>
+			<a href="${pageContext.request.contextPath}/dentistServlet?op=view&did=<%=i.getDentistId() %>">详细</a>
 			<a href="${pageContext.request.contextPath}/#">删除</a>
 		</td>
 	</tr>

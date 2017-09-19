@@ -27,7 +27,7 @@ public class FamilyDao4MySQL implements FamilyDao {
 				pa.setAge(rs.getInt("Age"));
 				pa.setEmail(rs.getString("Email"));
 				pa.setFamilyId(rs.getInt("FamilyId"));
-				pa.setName(rs.getString("Address"));
+				pa.setName(rs.getString("Name"));
 				pa.setPatientId(rs.getInt("PatientId"));
 				pa.setSex(rs.getString("Sex"));
 				pa.setTel(rs.getString("Tel"));

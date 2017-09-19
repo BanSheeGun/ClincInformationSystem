@@ -36,32 +36,56 @@ public class PatientServlet extends HttpServlet {
 		} catch (Exception e) {
 			apn = 1;
 		}
+		int pid;
 		try {
-			int pid = (int)request.getAttribute("pid");
 			if (op.equals("view")) {
+				try {
+					pid = (int)request.getAttribute("pid");
+				} catch (Exception e) {
+					pid = Integer.parseInt(request.getParameter("pid"));
+				}
 				Patient p = ps.getPatientById(pid);
 				request.setAttribute("p", p);
 				PatientRecordPageModel prpm = prs.queryPatientRecord(prn, " PatientId = " + pid + " ");
 				request.setAttribute("prpm", prpm);
 				AppointmentPageModel appm = aps.queryAppointment(apn, " PatientId = " + pid + " ");
 				request.setAttribute("appm", appm);
+				request.setAttribute("op", "view");
 				RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/WEB-INF/JSP/patientIndex.jsp?op=view");
 				rd.forward(request, response);
 				return;
 			}
 			if (op.equals("new")) {
+				RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/WEB-INF/JSP/new/newpatient.jsp");
+				rd.forward(request, response);
+				return;
+			}
+			if (op.equals("edit")) {
+				request.setAttribute("op", "edit");
+				try {
+					pid = (int)request.getAttribute("pid");
+				} catch (Exception e) {
+					pid = Integer.parseInt(request.getParameter("pid"));
+				}
+				Patient p = ps.getPatientById(pid);
+				request.setAttribute("p", p);
+				PatientRecordPageModel prpm = prs.queryPatientRecord(prn, " PatientId = " + pid + " ");
+				request.setAttribute("prpm", prpm);
+				AppointmentPageModel appm = aps.queryAppointment(apn, " PatientId = " + pid + " ");
+				request.setAttribute("appm", appm);
+				RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/WEB-INF/JSP/patientIndex.jsp?op=edit");
+				rd.forward(request, response);
 				return;
 			}
 			if (op.equals("create")) {
 				Patient p = new Patient();
-				p.setAddress((String)request.getAttribute("address"));
-				p.setAge((int)request.getAttribute("age"));
-				p.setEmail((String)request.getAttribute("email"));
-				p.setFamilyId((int)request.getAttribute("familyId"));
-				p.setName((String)request.getAttribute("name"));
-				p.setPatientId((int)request.getAttribute("patientId"));
-				p.setSex((String)request.getAttribute("sex"));
-				p.setTel((String)request.getAttribute("tel"));
+				p.setAddress(request.getParameter("address"));
+				p.setAge(Integer.parseInt(request.getParameter("age")));
+				p.setEmail(request.getParameter("email"));
+				p.setFamilyId(Integer.parseInt(request.getParameter("familyId")));
+				p.setName(request.getParameter("name"));
+				p.setSex(request.getParameter("sex"));
+				p.setTel(request.getParameter("tel"));
 				p = ps.createPatientInfo(p);
 				request.setAttribute("p", p);
 				pid = p.getPatientId();
@@ -69,20 +93,21 @@ public class PatientServlet extends HttpServlet {
 				request.setAttribute("prpm", prpm);
 				AppointmentPageModel appm = aps.queryAppointment(apn, " PatientId = " + pid + " ");
 				request.setAttribute("appm", appm);
+				request.setAttribute("op", "view");
 				RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/WEB-INF/JSP/patientIndex.jsp?op=view");
 				rd.forward(request, response);
 				return;
 			}
 			if (op.equals("update")) {
 				Patient p = new Patient();
-				p.setAddress((String)request.getAttribute("address"));
-				p.setAge((int)request.getAttribute("age"));
-				p.setEmail((String)request.getAttribute("email"));
-				p.setFamilyId((int)request.getAttribute("familyId"));
-				p.setName((String)request.getAttribute("name"));
-				p.setPatientId((int)request.getAttribute("patientId"));
-				p.setSex((String)request.getAttribute("sex"));
-				p.setTel((String)request.getAttribute("tel"));
+				p.setAddress(request.getParameter("address"));
+				p.setAge(Integer.parseInt(request.getParameter("age")));
+				p.setEmail(request.getParameter("email"));
+				p.setFamilyId(Integer.parseInt(request.getParameter("familyId")));
+				p.setName(request.getParameter("name"));
+				p.setPatientId(Integer.parseInt(request.getParameter("patientId")));
+				p.setSex(request.getParameter("sex"));
+				p.setTel(request.getParameter("tel"));
 				p = ps.updatePatientInfo(p);
 				request.setAttribute("p", p);
 				pid = p.getPatientId();
@@ -90,7 +115,19 @@ public class PatientServlet extends HttpServlet {
 				request.setAttribute("prpm", prpm);
 				AppointmentPageModel appm = aps.queryAppointment(apn, " PatientId = " + pid + " ");
 				request.setAttribute("appm", appm);
+				request.setAttribute("op", "view");
 				RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/WEB-INF/JSP/patientIndex.jsp?op=view");
+				rd.forward(request, response);
+				return;
+			}
+			if (op.equals("delete")) {
+				try {
+					pid = (int)request.getAttribute("pid");
+				} catch (Exception e) {
+					pid = Integer.parseInt(request.getParameter("pid"));
+				}
+				ps.deletePatientById(pid);
+				RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/adminServlet");
 				rd.forward(request, response);
 				return;
 			}

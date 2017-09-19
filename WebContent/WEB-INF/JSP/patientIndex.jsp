@@ -32,7 +32,13 @@ background: #FFF;
 <body>
 <h1 align="center"><font size="8" face="微软雅黑"> 病人  </font></h1>
 <%
-	String op = (String)request.getAttribute("op");
+	String op = null;
+	try {
+		op = (String)request.getAttribute("op");
+	} catch (Exception e) {
+		op = request.getParameter("op");
+	}
+	
 	Patient p = (Patient)request.getAttribute("p");
 	if (op.equals("view")) {
 %>
@@ -62,13 +68,42 @@ background: #FFF;
 	<td><%=p.getAddress() %></td>
 </tr>
 </table>
-<%} %>
-
 <p align="center">
 <font size="4" face="微软雅黑"> 
-<a href="#">修改 </a>   <a href="#">预约</a> </font>
+<a href="${pageContext.request.contextPath}/patientServlet?op=edit&pid=<%=p.getPatientId() %>">修改 </a>   <a href="#">预约</a> </font>
 </p>
-
+<%} else {%>
+<form action="patientServlet" method="post">
+<table align="center" width="80%">
+<tr>
+	<th>病人编号</th>
+	<th>家庭编号</th>
+	<th>姓名</th>
+	<th>性别</th>
+</tr>
+<tr>
+	<td><input type="text" readonly="readonly" name="patientId" value="<%=p.getPatientId() %>"/></td>
+	<td><input type="text" name="familyId" value="<%=p.getFamilyId() %>" /></td>
+	<td><input type="text" name="name" value="<%=p.getName() %>" /></td>
+	<td><input type="text" name="sex" value="<%=p.getSex() %>" /></td>
+</tr>
+<tr>
+	<th>年龄</th>
+	<th>邮箱</th>
+	<th>电话</th>
+	<th>住址</th>
+</tr>
+<tr>
+	<td><input type="text" name="age" value="<%=p.getAge() %>" /></td>
+	<td><input type="text" name="email" value="<%=p.getEmail() %>" /></td>
+	<td><input type="text" name="tel" value="<%=p.getTel() %>" /></td>
+	<td><input type="text" name="address" value="<%=p.getAddress() %>" /></td>
+</tr>
+</table>
+<p align="center"> <input type="submit" value="提交" /> <input type="reset" value="重置"/></p>
+<input type="hidden" name="op" value="update" />
+</form>
+<%} %>
 
 <%
 	AppointmentPageModel appm = (AppointmentPageModel)request.getAttribute("appm");
