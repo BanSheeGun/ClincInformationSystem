@@ -7,7 +7,7 @@ public class JDBCUtils {
 	 * JDBC
 	 */
 	private static final String DRIVER = "com.mysql.jdbc.Driver";
-	private static final String URL = "jdbc:mysql:///workspace?useUnicode=true&characterEncoding=utf-8&useSSL=false";
+	private static final String URL = "jdbc:mysql:///dentalhospital?useUnicode=true&characterEncoding=utf-8&useSSL=false";
 	private static final String USER = "root";
 	private static final String PASSWORD = "youaremine";
 	private static Connection connection;

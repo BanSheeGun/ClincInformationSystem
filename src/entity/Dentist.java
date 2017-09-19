@@ -2,7 +2,7 @@ package entity;
 
 public class Dentist {
 	private int DentistId;
-	private int ClincId;
+	private int ClinicId;
 	private String Name;
 	private String Sex;
 	private int Age;
@@ -15,11 +15,11 @@ public class Dentist {
 	public void setDentistId(int dentistId) {
 		DentistId = dentistId;
 	}
-	public int getClincId() {
-		return ClincId;
+	public int getClinicId() {
+		return ClinicId;
 	}
-	public void setClincId(int clincId) {
-		ClincId = clincId;
+	public void setClinicId(int clincId) {
+		ClinicId = clincId;
 	}
 	public String getName() {
 		return Name;

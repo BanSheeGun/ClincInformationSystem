@@ -6,25 +6,24 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import dao.DentistDao;
 import dao.JDBCUtils;
-import dao.PatientDao;
-import entity.Patient;
+import entity.*;
 
-public class PatientDao4MySQL implements PatientDao {
+public class DentistDao4MySQL implements DentistDao {
 	private Connection connection;
 	private PreparedStatement pst;
 	private ResultSet rs;
-	
-	private String Delete_Patient_By_Id_SQL =
-			" DELETE FROM Patient WHERE PatientId = ?  ";
+
 	@Override
-	public boolean deletePatientById(int patientId) {
+	public boolean deleteDentistById(int dentistId) {
 		connection = JDBCUtils.getConnection();
 		boolean isDelete = false;
+		String s = " DELETE FROM Dentist WHERE DentistId = ?  ";
 		if (connection != null)
 			try {
-				pst = connection.prepareStatement(Delete_Patient_By_Id_SQL);
-				pst.setInt(1, patientId);
+				pst = connection.prepareStatement(s);
+				pst.setInt(1, dentistId);
 				isDelete = pst.execute();
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -34,67 +33,66 @@ public class PatientDao4MySQL implements PatientDao {
 		return isDelete;
 	}
 
-
 	@Override
-	public Patient getPatientById(int patientId) {
+	public Dentist getDentistById(int dentistId) {
 		connection = JDBCUtils.getConnection();
-		Patient pa = null;
-		String s = " SELECT * FROM Patient WHERE PatientId = ? ";
+		Dentist da = null;
+		String s = " SELECT * FROM Dentist WHERE DentistId = ? ";
 		try {
 			pst = connection.prepareStatement(s);
-			pst.setInt(1, patientId);
+			pst.setInt(1, dentistId);
 			rs = pst.executeQuery();
 			while (rs.next()) {
-				pa = new Patient();
-				pa.setAddress(rs.getString("Address"));
-				pa.setAge(rs.getInt("Age"));
-				pa.setEmail(rs.getString("Email"));
-				pa.setFamilyId(rs.getInt("FamilyId"));
-				pa.setName(rs.getString("Name"));
-				pa.setPatientId(rs.getInt("PatientId"));
-				pa.setSex(rs.getString("Sex"));
-				pa.setTel(rs.getString("Tel"));
+				da = new Dentist();
+				da.setAddress(rs.getString("Address"));
+				da.setAge(rs.getInt("Age"));
+				da.setEmail(rs.getString("Email"));
+				da.setName(rs.getString("Name"));
+				da.setDentistId(rs.getInt("DentistId"));
+				da.setSex(rs.getString("Sex"));
+				da.setTel(rs.getString("Tel"));
+				da.setClinicId(rs.getInt("ClinicId"));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			JDBCUtils.close(connection, pst, rs);
 		}
-		return pa;
+		return da;
 	}
 
 	@Override
-	public boolean updatePatientInfo(Patient patient) {
+	public boolean updateDentistInfo(Dentist dentist) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean createPatientInfo(Patient patient) {
+	public boolean createDentistInfo(Dentist dentist) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public List<Patient> getPatient(int start) {
+	public List<Dentist> getDentist(int start) {
 		connection = JDBCUtils.getConnection();
-		List<Patient> p = new ArrayList<Patient>();
-		String s = " SELECT * FROM Patient LIMIT ? , 10 ";
+		List<Dentist> p = new ArrayList<Dentist>();
+		String s = " SELECT * FROM Dentist LIMIT ? , 10 ";
 		try {
 			pst = connection.prepareStatement(s);
 			pst.setInt(1, start);
 			rs = pst.executeQuery();
 			while (rs.next()) {
-				Patient pa = new Patient();
-				pa.setAddress(rs.getString("Address"));
-				pa.setAge(rs.getInt("Age"));
-				pa.setEmail(rs.getString("Email"));
-				pa.setFamilyId(rs.getInt("FamilyId"));
-				pa.setName(rs.getString("Name"));
-				pa.setPatientId(rs.getInt("PatientId"));
-				pa.setSex(rs.getString("Sex"));
-				pa.setTel(rs.getString("Tel"));
-				p.add(pa);
+				Dentist da = new Dentist();
+				da.setAddress(rs.getString("Address"));
+				da.setAge(rs.getInt("Age"));
+				da.setEmail(rs.getString("Email"));
+				da.setName(rs.getString("Name"));
+				da.setDentistId(rs.getInt("DentistId"));
+				da.setSex(rs.getString("Sex"));
+				da.setTel(rs.getString("Tel"));
+				da.setClinicId(rs.getInt("ClinicId"));
+				p.add(da);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -105,10 +103,10 @@ public class PatientDao4MySQL implements PatientDao {
 	}
 
 	@Override
-	public int getPatientNumbers() {
+	public int getDentistNumbers() {
 		int ans = 0;
 		connection = JDBCUtils.getConnection();
-		String s = " SELECT COUNT(*) AS Amount FROM Patient ";
+		String s = " SELECT COUNT(*) AS Amount FROM Dentist ";
 		try {
 			pst = connection.prepareStatement(s);
 			rs = pst.executeQuery();

@@ -3,13 +3,13 @@ package entity;
 import java.util.*;
 
 public class PatientPageModel {
-	private int pt, ptn;
+	private int pn, ptn;
 	private List<Patient> lp;
-	public int getPt() {
-		return pt;
+	public int getPn() {
+		return pn;
 	}
-	public void setPt(int pt) {
-		this.pt = pt;
+	public void setPn(int pn) {
+		this.pn = pn;
 	}
 	public int getPtn() {
 		return ptn;

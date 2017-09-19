@@ -22,6 +22,9 @@ public class FamilyServlet extends HttpServlet {
 	FamilyService fs = new FamilyService();
 	
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html;chatset=utf-8");
 		String op = request.getParameter("op");
 		if (op.equals("new")) {
 			RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/WEB-INF/JSP/new/newfamily.jsp");

@@ -1,6 +1,8 @@
 package web;
 
 import java.io.IOException;
+import service.*;
+import entity.*;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,7 +20,9 @@ public class PatientRecordServlet extends HttpServlet {
 	 * @see HttpServlet#service(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		String oper = request.getParameter("oper");
+		request.setAttribute("oper", oper);
+		
 	}
 
 }

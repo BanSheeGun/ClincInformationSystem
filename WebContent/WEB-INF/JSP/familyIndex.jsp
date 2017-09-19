@@ -4,23 +4,24 @@
 <html>
 <head>
 <style type="text/css">
-table, td, th
-  {
-  border:0px;
-border-collapse:collapse;
-padding: 5px 10px;
-font-size: 16px;
-font-family: Verdana;
-color: black;
-  text-align:center;
-  }
-
-th
-  {
+table, td, th {
+	border:1px;
+	border-collapse:collapse;
+	padding: 5px 10px;
+	font-size: 16px;
+	font-family: Verdana;
+	color: black;
+	text-align:center;
+}
+th {
   background-color:black;
   color:white;
-  }
-tr {
+}
+tr:nth-child(odd) {
+background: grey;
+  text-align:center;
+}
+tr:nth-child(even) {
 background: #FFF;
   text-align:center;
 }

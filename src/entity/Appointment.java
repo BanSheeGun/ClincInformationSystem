@@ -2,7 +2,7 @@ package entity;
 
 public class Appointment {
 	private int ApporintmentId;
-	private int EmployeeId;
+	private int DentistId;
 	private int PatientId;
 	private int ClinicId;
 	private String Date;
@@ -13,11 +13,11 @@ public class Appointment {
 	public void setApporintmentId(int apporintmentId) {
 		ApporintmentId = apporintmentId;
 	}
-	public int getEmployeeId() {
-		return EmployeeId;
+	public int getDentistId() {
+		return DentistId;
 	}
-	public void setEmployeeId(int employeeId) {
-		EmployeeId = employeeId;
+	public void setEmployeeId(int dentistId) {
+		DentistId = dentistId;
 	}
 	public int getPatientId() {
 		return PatientId;
