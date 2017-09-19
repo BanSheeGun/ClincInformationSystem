@@ -12,10 +12,10 @@ public class PatientService {
 	public Patient getPatientById(int patientId){
 		return pdao.getPatientById(patientId);
 	}
-	public boolean updatePatientInfo(Patient patient){
+	public Patient updatePatientInfo(Patient patient){
 		return pdao.updatePatientInfo(patient);
 	}
-	public boolean createPatientInfo(Patient patient){
+	public Patient createPatientInfo(Patient patient){
 		return pdao.createPatientInfo(patient);
 	}
 	public List<Patient> getPatient(int start){

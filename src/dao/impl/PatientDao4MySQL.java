@@ -64,15 +64,69 @@ public class PatientDao4MySQL implements PatientDao {
 	}
 
 	@Override
-	public boolean updatePatientInfo(Patient patient) {
-		// TODO Auto-generated method stub
-		return false;
+	public Patient updatePatientInfo(Patient p) {
+		connection = JDBCUtils.getConnection();
+		if (connection != null)
+			try {
+				String work = " UPDATE Patient SET Name = ? , Sex = ? , Tel = ? , Age = ? , FamilyId = ? , Address = ? "
+						+ ", Email = ? WHERE PatientId = ? ";
+				pst = connection.prepareStatement(work);
+				pst.setString(1, p.getName());
+				pst.setString(2, p.getSex());
+				pst.setString(3, p.getTel());
+				pst.setInt(4, p.getAge());
+				pst.setInt(5, p.getFamilyId());
+				pst.setString(6, p.getAddress());
+				pst.setString(7, p.getEmail());
+				pst.setInt(8, p.getPatientId());
+				pst.executeUpdate();
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				JDBCUtils.close(connection, pst, rs);
+			}
+		return getPatientById(p.getPatientId());
 	}
 
 	@Override
-	public boolean createPatientInfo(Patient patient) {
-		// TODO Auto-generated method stub
-		return false;
+	public Patient createPatientInfo(Patient p) {
+		connection = JDBCUtils.getConnection();
+		if (connection != null)
+			try {
+				String work = " Insert into Patient(Name , Sex , Tel  , Age  , FamilyId  , Address "
+						+ ", Email ) Values ( ? , ? , ? , ? , ? , ? , ? ) ";
+				pst = connection.prepareStatement(work);
+				pst.setString(1, p.getName());
+				pst.setString(2, p.getSex());
+				pst.setString(3, p.getTel());
+				pst.setInt(4, p.getAge());
+				pst.setInt(5, p.getFamilyId());
+				pst.setString(6, p.getAddress());
+				pst.setString(7, p.getEmail());
+				pst.executeUpdate();
+				String work2 = " Select * from Patient WHERE Name = ? and Sex = ? and Tel = ? "
+						+ " and Age = ? and FamilyId = ? and Address = ? "
+						+ " and Email = ? ";
+				pst = connection.prepareStatement(work2);
+				pst.setString(1, p.getName());
+				pst.setString(2, p.getSex());
+				pst.setString(3, p.getTel());
+				pst.setInt(4, p.getAge());
+				pst.setInt(5, p.getFamilyId());
+				pst.setString(6, p.getAddress());
+				pst.setString(7, p.getEmail());
+				p = null;
+				rs = pst.executeQuery();
+				if (rs.next()) {
+					p = new Patient();
+					p.setPatientId(rs.getInt("PatientId"));
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				JDBCUtils.close(connection, pst, rs);
+			}
+		return getPatientById(p.getPatientId());
 	}
 
 	@Override

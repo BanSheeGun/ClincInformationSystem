@@ -6,8 +6,8 @@ import entity.*;
 public interface PatientDao {
 	boolean deletePatientById(int patientId);
 	Patient getPatientById(int patientId);
-	boolean updatePatientInfo(Patient patient);
-	boolean createPatientInfo(Patient patient);
+	Patient updatePatientInfo(Patient patient);
+	Patient createPatientInfo(Patient patient);
 	List<Patient> getPatient(int start);
 	int getPatientNumbers();
 }

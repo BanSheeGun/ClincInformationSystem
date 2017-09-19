@@ -13,10 +13,10 @@ public class DentistService {
 	public Dentist getDentistById(int dentistId){
 		return ddao.getDentistById(dentistId);
 	}
-	public boolean updateDentistInfo(Dentist dentist){
+	public Dentist updateDentistInfo(Dentist dentist){
 		return ddao.updateDentistInfo(dentist);
 	}
-	public boolean createDentistInfo(Dentist dentist){
+	public Dentist createDentistInfo(Dentist dentist){
 		return ddao.createDentistInfo(dentist);
 	}
 	public List<Dentist> getDentist(int start){

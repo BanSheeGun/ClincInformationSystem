@@ -19,10 +19,16 @@ public class PatientRecordServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#service(HttpServletRequest request, HttpServletResponse response)
 	 */
+	private PatientRecordService prs = new 	PatientRecordService();
+	
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String oper = request.getParameter("oper");
 		request.setAttribute("oper", oper);
-		
+		try {
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }

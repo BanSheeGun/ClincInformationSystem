@@ -62,15 +62,69 @@ public class DentistDao4MySQL implements DentistDao {
 	}
 
 	@Override
-	public boolean updateDentistInfo(Dentist dentist) {
-		// TODO Auto-generated method stub
-		return false;
+	public Dentist updateDentistInfo(Dentist p) {
+		connection = JDBCUtils.getConnection();
+		if (connection != null)
+			try {
+				String work = " UPDATE Dentist SET Name = ? , Sex = ? , Tel = ? , Age = ? , DinicId = ? , Address = ? "
+						+ ", Email = ? WHERE  DentistId = ? ";
+				pst = connection.prepareStatement(work);
+				pst.setString(1, p.getName());
+				pst.setString(2, p.getSex());
+				pst.setString(3, p.getTel());
+				pst.setInt(4, p.getAge());
+				pst.setInt(5, p.getClinicId());
+				pst.setString(6, p.getAddress());
+				pst.setString(7, p.getEmail());
+				pst.setInt(8, p.getDentistId());
+				pst.executeUpdate();
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				JDBCUtils.close(connection, pst, rs);
+			}
+		return getDentistById(p.getDentistId());
 	}
 
 	@Override
-	public boolean createDentistInfo(Dentist dentist) {
-		// TODO Auto-generated method stub
-		return false;
+	public Dentist createDentistInfo(Dentist p) {
+		connection = JDBCUtils.getConnection();
+		if (connection != null)
+			try {
+				String work = " Insert into Dentist(Name , Sex , Tel  , Age  , ClincId  , Address "
+						+ ", Email ) Values ( ? , ? , ? , ? , ? , ? , ? ) ";
+				pst = connection.prepareStatement(work);
+				pst.setString(1, p.getName());
+				pst.setString(2, p.getSex());
+				pst.setString(3, p.getTel());
+				pst.setInt(4, p.getAge());
+				pst.setInt(5, p.getClinicId());
+				pst.setString(6, p.getAddress());
+				pst.setString(7, p.getEmail());
+				pst.executeUpdate();
+				String work2 = " Select * from Dentist WHERE Name = ? and Sex = ? and Tel = ? "
+						+ " and Age = ? and ClinicId = ? and Address = ? "
+						+ " and Email = ? ";
+				pst = connection.prepareStatement(work2);
+				pst.setString(1, p.getName());
+				pst.setString(2, p.getSex());
+				pst.setString(3, p.getTel());
+				pst.setInt(4, p.getAge());
+				pst.setInt(5, p.getClinicId());
+				pst.setString(6, p.getAddress());
+				pst.setString(7, p.getEmail());
+				p = null;
+				rs = pst.executeQuery();
+				if (rs.next()) {
+					p = new Dentist();
+					p.setDentistId(rs.getInt("DentistId"));
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				JDBCUtils.close(connection, pst, rs);
+			}
+		return getDentistById(p.getDentistId());
 	}
 
 	@Override

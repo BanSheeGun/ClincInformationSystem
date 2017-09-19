@@ -33,4 +33,19 @@
     <servlet-name>familyServlet</servlet-name>
     <url-pattern>/familyServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>patientServlet</servlet-name>
+    <servlet-class>web.PatientServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>patientServlet</servlet-name>
+    <url-pattern>/patientServlet</url-pattern>
+  </servlet-mapping>  <servlet>
+    <servlet-name>dentistServlet</servlet-name>
+    <servlet-class>web.DentistServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>dentistServlet</servlet-name>
+    <url-pattern>/dentistServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

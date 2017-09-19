@@ -6,7 +6,7 @@ public class Appointment {
 	private int PatientId;
 	private int ClinicId;
 	private String Date;
-	private String Status;
+	private int Status;
 	public int getApporintmentId() {
 		return ApporintmentId;
 	}
@@ -16,7 +16,7 @@ public class Appointment {
 	public int getDentistId() {
 		return DentistId;
 	}
-	public void setEmployeeId(int dentistId) {
+	public void setDentistId(int dentistId) {
 		DentistId = dentistId;
 	}
 	public int getPatientId() {
@@ -37,10 +37,10 @@ public class Appointment {
 	public void setDate(String date) {
 		Date = date;
 	}
-	public String getStatus() {
+	public int getStatus() {
 		return Status;
 	}
-	public void setStatus(String status) {
+	public void setStatus(int status) {
 		Status = status;
 	}
 	

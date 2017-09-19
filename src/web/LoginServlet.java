@@ -21,6 +21,8 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#service(HttpServletRequest request, HttpServletResponse response)
 	 */
 	FamilyService fs = new FamilyService();
+	PatientService ps = new PatientService();
+	DentistService ds = new DentistService();
 	
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String type = request.getParameter("type");
@@ -34,13 +36,38 @@ public class LoginServlet extends HttpServlet {
 				rd1.forward(request, response);
 				break;
 			case "patient" :
+				try {
+					int pid = Integer.parseInt(request.getParameter("ID"));
+					Patient p = ps.getPatientById(pid);
+					if (p == null)
+						throw new Exception();
+					request.setAttribute("pid", pid);
+					request.setAttribute("op", "view");
+					RequestDispatcher rd2 = this.getServletContext().getRequestDispatcher("/patientServlet?op=view");
+					rd2.forward(request, response);		
+				} catch (Exception e) {
+					RequestDispatcher rd2 = this.getServletContext().getRequestDispatcher("/index.jsp");
+					rd2.forward(request, response);					
+				}
 				break;
 			case "doctor" :
+				try {
+					int did = Integer.parseInt(request.getParameter("ID"));
+					Dentist d = ds.getDentistById(did);
+					if (d == null)
+						throw new Exception();
+					request.setAttribute("did", did);
+					request.setAttribute("op", "view");
+					RequestDispatcher rd3 = this.getServletContext().getRequestDispatcher("/dentistServlet?op=view");
+					rd3.forward(request, response);		
+				} catch (Exception e) {
+					RequestDispatcher rd3 = this.getServletContext().getRequestDispatcher("/index.jsp");
+					rd3.forward(request, response);					
+				}
 				break;
 			case "family" :
 				try {
 					int fid = Integer.parseInt(request.getParameter("ID"));
-					System.out.println(fid);
 					Family f = fs.queryFamily(fid);
 					if (f == null)
 						throw new Exception();
