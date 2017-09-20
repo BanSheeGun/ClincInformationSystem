@@ -70,7 +70,8 @@ background: #FFF;
 </table>
 <p align="center">
 <font size="4" face="微软雅黑"> 
-<a href="${pageContext.request.contextPath}/patientServlet?op=edit&pid=<%=p.getPatientId() %>">修改 </a>   <a href="#">预约</a> </font>
+<a href="${pageContext.request.contextPath}/patientServlet?op=edit&pid=<%=p.getPatientId() %>">修改 </a>  
+ <a href="${pageContext.request.contextPath}/appointmentServlet?op=new&pid=<%=p.getPatientId() %>">预约</a> </font>
 </p>
 <%} else {%>
 <form action="patientServlet" method="post">

@@ -3,7 +3,6 @@ package dao.impl;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -14,13 +13,11 @@ import dao.JDBCUtils;
 import entity.*;
 
 public class AppointmentDao4MySQL implements AppointmentDao {
-	public static Date getNowDate() {
-	    Date currentTime = new Date();
-	    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-	    String dateString = formatter.format(currentTime);
-	    ParsePosition pos = new ParsePosition(8);
-	    Date currentTime_2 = formatter.parse(dateString, pos);
-	    return currentTime_2;
+	public String getNowDate() {
+        Date ss = new Date();  
+        SimpleDateFormat format1 = new SimpleDateFormat("yyyy年MM月dd日");  
+        String time = format1.format(ss.getTime());
+        return time;
 	}
 	private Connection connection;
 	private PreparedStatement pst;
@@ -70,22 +67,23 @@ public class AppointmentDao4MySQL implements AppointmentDao {
 	public Appointment createPatientRecord(Appointment ap) {
 		connection = JDBCUtils.getConnection();
 		Appointment pr = null;
-		String time = getNowDate().toString();
+		String time = this.getNowDate();
 		String s = " INSERT INTO Appointment(PatientId, DentistId, Date, ClinicId, Status) VALUES ("
 				+ ap.getPatientId() + ", "
-				+ ap.getDentistId() + ", "
-				+ time + " , "
+				+ ap.getDentistId() + ", \""
+				+ time + "\" , "
 				+ ap.getClinicId() + " , 0) ";
-		String s1 = " SELECT * FROM PatientRecord WHERE "
+		String s1 = " SELECT * FROM Appointment WHERE "
 				+ " PatientId = " + ap.getPatientId() + " and "
 				+ " DentistId = " + ap.getDentistId() + " and "
-				+ " Date = " + time + " and "
+				+ " Date = \"" + time + "\" and "
 				+ " ClinicId = " + ap.getClinicId() + " and "
-				+ " Status = " + 0 + " and ";
+				+ " Status = " + 0 + " ";
 		try {
 			pst = connection.prepareStatement(s);
 			pst.executeUpdate();
 			pst = connection.prepareStatement(s1);
+			rs = pst.executeQuery();
 			if (rs.next()) {
 				pr = new Appointment ();
 				pr.setApporintmentId(rs.getInt("AppointmentId"));
@@ -130,6 +128,7 @@ public class AppointmentDao4MySQL implements AppointmentDao {
 				n = tn; 
 			if (n < 1)
 				n = 1;
+			pgpm.setAptn(tn);
 			pgpm.setApn(n);
 			pst = connection.prepareStatement(s1);
 			pst.setInt(1, n-1);

@@ -29,32 +29,31 @@ background: #FFF;
 <title>家庭信息</title>
 </head>
 <body>
-<h1 align="center"><font size="8" face="微软雅黑"> 创建医生  </font></h1>
-<form action="dentistServlet" method="post">
+<%
+	int pid = (int)request.getAttribute("pid");
+%>
+<h1 align="center"><font size="8" face="微软雅黑"> 创建预约  </font></h1>
+<form action="appointmentServlet" method="post">
 <table align="center" width="80%">
 <tr>
-	<th>医生编号</th>
+	<th>预约编号</th>
+	<th>病人编号</th>
+	<th>牙医编号</th>
+</tr>
+<tr>
+	<td><input type="text" readonly="readonly" name="appointmentId" value="自动生成"/></td>
+	<td><input type="text" readonly="readonly" name="patientId" value="<%=pid %>"/></td>
+	<td><input type="text" name="dentistId" value="在此输入" /></td>
+</tr>
+<tr>
 	<th>诊所编号</th>
-	<th>姓名</th>
-	<th>性别</th>
+	<th>预约时间</th>
+	<th>预约状态</th>
 </tr>
 <tr>
-	<td><input type="text" readonly="readonly" name="dentistId" value="自动生成"/></td>
 	<td><input type="text" name="clinicId" value="在此输入" /></td>
-	<td><input type="text" name="name" value="在此输入" /></td>
-	<td><input type="text" name="sex" value="在此输入" /></td>
-</tr>
-<tr>
-	<th>年龄</th>
-	<th>邮箱</th>
-	<th>电话</th>
-	<th>住址</th>
-</tr>
-<tr>
-	<td><input type="text" name="age" value="在此输入" /></td>
-	<td><input type="text" name="email" value="在此输入" /></td>
-	<td><input type="text" name="tel" value="在此输入" /></td>
-	<td><input type="text" name="address" value="在此输入" /></td>
+	<td><input type="text" readonly="readonly" name="date" value="自动生成"/></td>
+	<td><input type="text" readonly="readonly" name="status" value="自动生成"/></td>
 </tr>
 </table>
 <p align="center"> <input type="submit" value="提交" /> <input type="reset" value="重置"/></p>

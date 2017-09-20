@@ -22,6 +22,9 @@ public class PatientRecordServlet extends HttpServlet {
 	private PatientRecordService prs = new 	PatientRecordService();
 	
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html;chatset=utf-8");
 		String oper = request.getParameter("oper");
 		request.setAttribute("oper", oper);
 		try {

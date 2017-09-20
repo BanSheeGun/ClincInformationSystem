@@ -132,6 +132,7 @@ public class PatientRecordDao4MySQL implements PatientRecordDao {
 			if (n < 1)
 				n = 1;
 			pgpm.setPrn(n);
+			pgpm.setPrtn(tn);
 			pst = connection.prepareStatement(s1);
 			pst.setInt(1, n-1);
 			rs = pst.executeQuery();

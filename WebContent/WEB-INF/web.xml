@@ -40,12 +40,21 @@
   <servlet-mapping>
     <servlet-name>patientServlet</servlet-name>
     <url-pattern>/patientServlet</url-pattern>
-  </servlet-mapping>  <servlet>
+  </servlet-mapping>  
+  <servlet>
     <servlet-name>dentistServlet</servlet-name>
     <servlet-class>web.DentistServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>dentistServlet</servlet-name>
     <url-pattern>/dentistServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>appointmentServlet</servlet-name>
+    <servlet-class>web.AppointmentServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>appointmentServlet</servlet-name>
+    <url-pattern>/appointmentServlet</url-pattern>
   </servlet-mapping>
 </web-app>

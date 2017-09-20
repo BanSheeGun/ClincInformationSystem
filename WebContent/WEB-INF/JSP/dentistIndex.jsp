@@ -120,7 +120,7 @@ background: #FFF;
 <table align="center" width="80%">
 <tr>
 	<th>预约编号</th>
-	<th>牙医编号</th>
+	<th>病人编号</th>
 	<th>诊所编号</th>
 	<th>日期</th>
 	<th>状态</th>
@@ -130,19 +130,20 @@ background: #FFF;
 %>
 	<tr>
 		<td><%=i.getApporintmentId() %></td>
-		<td><%=i.getDentistId() %></td>
+		<td><%=i.getPatientId() %></td>
 		<td><%=i.getClinicId() %></td>
 		<td><%=i.getDate() %></td>
 		<td>
 		<% 
 		if (i.getStatus() == 0) {%>
-			等待
+			<a href="${pageContext.request.contextPath}/appointmentServlet?op=update&status=1&did=<%=i.getDentistId() %>&aid=<%=i.getApporintmentId() %> "> 接受 </a>
+			<a href="${pageContext.request.contextPath}/appointmentServlet?op=update&status=2&did=<%=i.getDentistId() %>&aid=<%=i.getApporintmentId() %> "> 拒绝 </a>
 		<%} else {
 			if (i.getStatus() == 1) {
 			%>
-			接受
+			<a href="#"> 诊断  </a>
 			<% }else{ %>
-			回绝
+			已回绝
 		<%}} %>
 		</td>
 	</tr>
