@@ -31,15 +31,21 @@ background: #FFF;
 </head>
 <body>
 <h1 align="center"><font size="8" face="微软雅黑"> 牙医  </font></h1>
-<%
-	String op = (String)request.getAttribute("op");
+<%	
+	String op = null;
+	try {
+		op = (String)request.getAttribute("op");
+	} catch (Exception e) {
+		op = request.getParameter("op");
+	}
+	
 	Dentist d = (Dentist)request.getAttribute("d");
 	if (op.equals("view")) {
 %>
 <table align="center" width="80%">
 <tr>
 	<th>医生编号</th>
-	<th>政所编号</th>
+	<th>诊所编号</th>
 	<th>姓名</th>
 	<th>性别</th>
 </tr>
@@ -62,12 +68,43 @@ background: #FFF;
 	<td><%=d.getAddress() %></td>
 </tr>
 </table>
-<%} %>
 
 <p align="center">
 <font size="4" face="微软雅黑"> 
-<a href="#">修改 </a>   <a href="#">预约</a> </font>
+<a href="${pageContext.request.contextPath}/dentistServlet?op=edit&did=<%=d.getDentistId() %>">修改 </a></font>
 </p>
+<%} else {%>
+<form action="dentistServlet" method="post">
+<table align="center" width="80%">
+<tr>
+	<th>医生编号</th>
+	<th>诊所编号</th>
+	<th>姓名</th>
+	<th>性别</th>
+</tr>
+<tr>
+	<td><input type="text" readonly="readonly" name="dentistId" value="<%=d.getDentistId() %>"/></td>
+	<td><input type="text" name="clinicId" value="<%=d.getClinicId() %>" /></td>
+	<td><input type="text" name="name" value="<%=d.getName() %>" /></td>
+	<td><input type="text" name="sex" value="<%=d.getSex() %>" /></td>
+</tr>
+<tr>
+	<th>年龄</th>
+	<th>邮箱</th>
+	<th>电话</th>
+	<th>住址</th>
+</tr>
+<tr>
+	<td><input type="text" name="age" value="<%=d.getAge() %>" /></td>
+	<td><input type="text" name="email" value="<%=d.getEmail() %>" /></td>
+	<td><input type="text" name="tel" value="<%=d.getTel() %>" /></td>
+	<td><input type="text" name="address" value="<%=d.getAddress() %>" /></td>
+</tr>
+</table>
+<p align="center"> <input type="submit" value="提交" /> <input type="reset" value="重置"/></p>
+<input type="hidden" name="op" value="update" />
+</form>
+<% }%>
 
 
 <%
@@ -114,17 +151,17 @@ background: #FFF;
 <div align="center">
 <font size="4" face="微软雅黑">
 	<% if (apn > 1) {%>
-	<a href="${pageContext.request.contextPath}/patientServlet?op=view&apn=<%=apn-1 %>&did=<%=d.getDentistId() %>">上一页</a>
+	<a href="${pageContext.request.contextPath}/dentistServlet?op=view&apn=<%=apn-1 %>&did=<%=d.getDentistId() %>">上一页</a>
 	<%}  
 	for (int i = 1; i <= aptn; ++i) 
 		if (i == apn) {%>
 			<%=i %>
 		<% } else {%>
-			<a href="${pageContext.request.contextPath}/patientServlet?op=view&apn=<%=i %>&did=<%=d.getDentistId() %>"><%=i %></a>
+			<a href="${pageContext.request.contextPath}/dentistServlet?op=view&apn=<%=i %>&did=<%=d.getDentistId() %>"><%=i %></a>
 	
 	
 	<%} if (apn < aptn) {%>
-	<a href="${pageContext.request.contextPath}/patientServlet?op=view&apn=<%=apn+1 %>&did=<%=d.getDentistId() %>">下一页</a>
+	<a href="${pageContext.request.contextPath}/dentistServlet?op=view&apn=<%=apn+1 %>&did=<%=d.getDentistId() %>">下一页</a>
 	<%} %>
 </font>
 </div>
@@ -161,17 +198,17 @@ background: #FFF;
 <div align="center">
 <font size="4" face="微软雅黑">
 	<% if (prn > 1) {%>
-	<a href="${pageContext.request.contextPath}/patientServlet?op=view&prn=<%=prn-1 %>&did=<%=d.getDentistId() %>">上一页</a>
+	<a href="${pageContext.request.contextPath}/dentistServlet?op=view&prn=<%=prn-1 %>&did=<%=d.getDentistId() %>">上一页</a>
 	<%}  
 	for (int i = 1; i <= prtn; ++i) 
 		if (i == prn) {%>
 			<%=i %>
 		<% } else {%>
-			<a href="${pageContext.request.contextPath}/patientServlet?op=view&prn=<%=i %>&did=<%=d.getDentistId() %>"><%=i %></a>
+			<a href="${pageContext.request.contextPath}/dentistServlet?op=view&prn=<%=i %>&did=<%=d.getDentistId() %>"><%=i %></a>
 	
 	
 	<%} if (prn < prtn) {%>
-	<a href="${pageContext.request.contextPath}/patientServlet?op=view&prn=<%=prn+1 %>&did=<%=d.getDentistId() %>">下一页</a>
+	<a href="${pageContext.request.contextPath}/dentistServlet?op=view&prn=<%=prn+1 %>&did=<%=d.getDentistId() %>">下一页</a>
 	<%} %>
 </font>
 </div>

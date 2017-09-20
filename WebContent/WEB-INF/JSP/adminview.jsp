@@ -151,7 +151,7 @@ background: #FFF;
 		<td><%=i.getName() %></td>
 		<td>
 			<a href="${pageContext.request.contextPath}/dentistServlet?op=view&did=<%=i.getDentistId() %>">详细</a>
-			<a href="${pageContext.request.contextPath}/#">删除</a>
+			<a href="${pageContext.request.contextPath}/dentistServlet?op=delete&did=<%=i.getDentistId() %>">删除</a>
 		</td>
 	</tr>
 <%} %>

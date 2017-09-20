@@ -66,7 +66,7 @@ public class DentistDao4MySQL implements DentistDao {
 		connection = JDBCUtils.getConnection();
 		if (connection != null)
 			try {
-				String work = " UPDATE Dentist SET Name = ? , Sex = ? , Tel = ? , Age = ? , DinicId = ? , Address = ? "
+				String work = " UPDATE Dentist SET Name = ? , Sex = ? , Tel = ? , Age = ? , ClinicId = ? , Address = ? "
 						+ ", Email = ? WHERE  DentistId = ? ";
 				pst = connection.prepareStatement(work);
 				pst.setString(1, p.getName());
@@ -91,7 +91,7 @@ public class DentistDao4MySQL implements DentistDao {
 		connection = JDBCUtils.getConnection();
 		if (connection != null)
 			try {
-				String work = " Insert into Dentist(Name , Sex , Tel  , Age  , ClincId  , Address "
+				String work = " Insert into Dentist(Name , Sex , Tel  , Age  , ClinicId  , Address "
 						+ ", Email ) Values ( ? , ? , ? , ? , ? , ? , ? ) ";
 				pst = connection.prepareStatement(work);
 				pst.setString(1, p.getName());

@@ -73,7 +73,7 @@ background: #FFF;
 没有账号您可以注册<br />
 <a href="${pageContext.request.contextPath}/patientServlet?op=new">一个病人账号</a>
 或
-<a href="#">一个医生账号</a>
+<a href="${pageContext.request.contextPath}/dentistServlet?op=new">一个医生账号</a>
 或
 <a href="${pageContext.request.contextPath}/familyServlet?op=new">一个家庭账号</a>
 </font>

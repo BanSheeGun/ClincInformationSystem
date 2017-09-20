@@ -38,16 +38,99 @@ public class DentistServlet extends HttpServlet {
 		} catch (Exception e) {
 			apn = 1;
 		}
+		int did;
 		try {
-			int did = (int)request.getAttribute("did");
 			if (op.equals("view")) {
+				try {
+					did = (int)request.getAttribute("did");
+				} catch (Exception e) {
+					did = Integer.parseInt(request.getParameter("did"));
+				}
 				Dentist d = ds.getDentistById(did);
 				request.setAttribute("d", d);
 				PatientRecordPageModel prpm = prs.queryPatientRecord(prn, " DentistId = " + did + " ");
 				request.setAttribute("prpm", prpm);
 				AppointmentPageModel appm = aps.queryAppointment(apn, " DentistId = " + did + " ");
 				request.setAttribute("appm", appm);
+				request.setAttribute("op", "view");
 				RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/WEB-INF/JSP/dentistIndex.jsp?op=view");
+				rd.forward(request, response);
+				return;
+			}
+			if (op.equals("new")) {
+				RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/WEB-INF/JSP/new/newdentist.jsp");
+				rd.forward(request, response);
+				return;
+			}
+			if (op.equals("edit")) {
+				request.setAttribute("op", "edit");
+				try {
+					did = (int)request.getAttribute("did");
+				} catch (Exception e) {
+					did = Integer.parseInt(request.getParameter("did"));
+				}
+				Dentist d = ds.getDentistById(did);
+				request.setAttribute("d", d);
+				PatientRecordPageModel prpm = prs.queryPatientRecord(prn, " DentistId = " + did + " ");
+				request.setAttribute("prpm", prpm);
+				AppointmentPageModel appm = aps.queryAppointment(apn, " DentistId = " + did + " ");
+				request.setAttribute("appm", appm);
+				request.setAttribute("op", "edit");
+				RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/WEB-INF/JSP/dentistIndex.jsp?op=edit");
+				rd.forward(request, response);
+				return;
+			}
+			if (op.equals("create")) {
+				Dentist p = new Dentist();
+				p.setAddress(request.getParameter("address"));
+				p.setAge(Integer.parseInt(request.getParameter("age")));
+				p.setEmail(request.getParameter("email"));
+				p.setClinicId(Integer.parseInt(request.getParameter("clinicId")));
+				p.setName(request.getParameter("name"));
+				p.setSex(request.getParameter("sex"));
+				p.setTel(request.getParameter("tel"));
+				p = ds.createDentistInfo(p);
+				request.setAttribute("d", p);
+				did = p.getDentistId();
+				PatientRecordPageModel prpm = prs.queryPatientRecord(prn, " DentistId = " + did + " ");
+				request.setAttribute("prpm", prpm);
+				AppointmentPageModel appm = aps.queryAppointment(apn, " DentistId = " + did + " ");
+				request.setAttribute("appm", appm);
+				request.setAttribute("op", "view");
+				RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/WEB-INF/JSP/dentistIndex.jsp?op=view");
+				rd.forward(request, response);
+				return;
+			}
+			if (op.equals("update")) {
+				Dentist p = new Dentist();
+				p.setAddress(request.getParameter("address"));
+				p.setAge(Integer.parseInt(request.getParameter("age")));
+				p.setEmail(request.getParameter("email"));
+				p.setClinicId(Integer.parseInt(request.getParameter("clinicId")));
+				p.setName(request.getParameter("name"));
+				p.setDentistId(Integer.parseInt(request.getParameter("dentistId")));
+				p.setSex(request.getParameter("sex"));
+				p.setTel(request.getParameter("tel"));
+				p = ds.createDentistInfo(p);
+				request.setAttribute("d", p);
+				did = p.getDentistId();
+				PatientRecordPageModel prpm = prs.queryPatientRecord(prn, " DentistId = " + did + " ");
+				request.setAttribute("prpm", prpm);
+				AppointmentPageModel appm = aps.queryAppointment(apn, " DentistId = " + did + " ");
+				request.setAttribute("appm", appm);
+				request.setAttribute("op", "view");
+				RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/WEB-INF/JSP/dentistIndex.jsp?op=view");
+				rd.forward(request, response);
+				return;
+			}
+			if (op.equals("delete")) {
+				try {
+					did = (int)request.getAttribute("did");
+				} catch (Exception e) {
+					did = Integer.parseInt(request.getParameter("did"));
+				}
+				ds.deleteDentistById(did);
+				RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/adminServlet");
 				rd.forward(request, response);
 				return;
 			}
