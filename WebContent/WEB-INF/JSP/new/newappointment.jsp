@@ -26,7 +26,7 @@ background: #FFF;
 }
 </style>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>家庭信息</title>
+<title>新建预约</title>
 </head>
 <body>
 <%

@@ -57,4 +57,12 @@
     <servlet-name>appointmentServlet</servlet-name>
     <url-pattern>/appointmentServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>patientRecordServlet</servlet-name>
+    <servlet-class>web.PatientRecordServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>patientRecordServlet</servlet-name>
+    <url-pattern>/patientRecordServlet</url-pattern>
+  </servlet-mapping>  
 </web-app>

@@ -58,20 +58,22 @@ public class PatientRecordDao4MySQL implements PatientRecordDao {
 	public PatientRecord createPatientRecord(Appointment ap) {
 		connection = JDBCUtils.getConnection();
 		PatientRecord pr = null;
-		String s = " INSERT INTO PatientRecord(PatientId, DentistId, Content, PaymentId) VALUES ("
+		String s = " INSERT INTO PatientRecord(PatientId, DentistId, Content ) VALUES ("
 				+ ap.getPatientId() + ", "
 				+ ap.getDentistId() + ", "
-				+ " \"  \", "
-				+ 0 + ") ";
+				+ "\"未填写\"" + ") ";
 		String s1 = " SELECT * FROM PatientRecord WHERE "
 				+ " PatientId = " + ap.getPatientId() + " and "
 				+ " DentistId = " + ap.getDentistId() + " and "
-				+ " Content = " + " \"  \" " + " and "
-				+ " PaymentId = " + 0 + " ";
+				+ " Content = " + "\"未填写\""
+				+ " ";
+		System.out.println(s);
+		System.out.println(s1);
 		try {
 			pst = connection.prepareStatement(s);
 			pst.executeUpdate();
 			pst = connection.prepareStatement(s1);
+			rs = pst.executeQuery();
 			if (rs.next()) {
 				pr = new PatientRecord ();
 				pr.setContent(rs.getString("Content"));

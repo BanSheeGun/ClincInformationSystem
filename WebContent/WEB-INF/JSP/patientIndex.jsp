@@ -189,7 +189,7 @@ background: #FFF;
 		<td><%=i.getPatientRecordId() %></td>
 		<td><%=i.getDentistId() %></td>
 		<td>
-			<a href="#">详细</a>
+			<a href="${pageContext.request.contextPath}/patientRecordServlet?oper=pat&op=view&prid=<%=i.getPatientRecordId() %>">详细</a>
 		</td>
 	</tr>
 <%} %>

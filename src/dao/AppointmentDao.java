@@ -6,4 +6,5 @@ public interface AppointmentDao {
 	Appointment updateAppointment(int apid, int st);
 	Appointment createPatientRecord(Appointment ap);
 	AppointmentPageModel queryAppointment(int start, String more);
+	boolean deleteAppointment(int apid);
 }

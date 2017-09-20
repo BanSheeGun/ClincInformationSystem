@@ -26,7 +26,7 @@ background: #FFF;
 }
 </style>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>家庭信息</title>
+<title>新建病人</title>
 </head>
 <body>
 <h1 align="center"><font size="8" face="微软雅黑"> 创建病人  </font></h1>

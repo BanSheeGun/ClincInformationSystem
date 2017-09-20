@@ -39,13 +39,11 @@ public class PaymentDao4MySQL implements PaymentDao {
 	public Payment createPayment(Payment pay) {
 		connection = JDBCUtils.getConnection();
 		Payment p = null;
-		String s = " INSERT INTO Payment(InvoiceId, Number, PatientId) VALUES ("
-				+ " 0 "
-				+ pay.getNumber() + " "
+		String s = " INSERT INTO Payment(Number, PatientId) VALUES ("
+				+ pay.getNumber() + ", "
 				+ pay.getPatientId() + ") ";
 		String s1 = " SELECT * FROM Payment WHERE "
-				+ " InvoiceId = 0 "
-				+ " Number = " + pay.getNumber() + " "
+				+ " Number = " + pay.getNumber() + " and "
 				+ " PatientId = " + pay.getPatientId() + " ";
 		try {
 			pst = connection.prepareStatement(s);

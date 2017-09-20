@@ -3,7 +3,6 @@ package dao.impl;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import dao.InvoiceDao;
@@ -13,13 +12,11 @@ import entity.Payment;
 
 public class InvoiceDao4MySQL implements InvoiceDao {
 	
-	public static Date getNowDate() {
-	    Date currentTime = new Date();
-	    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-	    String dateString = formatter.format(currentTime);
-	    ParsePosition pos = new ParsePosition(8);
-	    Date currentTime_2 = formatter.parse(dateString, pos);
-	    return currentTime_2;
+	public static String getNowDate() {
+        Date ss = new Date();  
+        SimpleDateFormat format1 = new SimpleDateFormat("yyyy年MM月dd日");  
+        String time = format1.format(ss.getTime());
+        return time;
 	}
 	
 	private Connection connection;
@@ -51,15 +48,15 @@ public class InvoiceDao4MySQL implements InvoiceDao {
 	@Override
 	public Invoice createInvoice(Payment p) {
 		connection = JDBCUtils.getConnection();
-		String date = getNowDate().toString();
+		String date = getNowDate();
 		Invoice i = null;
-		String s = " INSERT INTO Payment(Date, Number, PatientId) VALUES ("
-				+ date + " "
-				+ p.getNumber() + " "
+		String s = " INSERT INTO Invoice(Date, Number, PatientId) VALUES (\""
+				+ date + "\" , "
+				+ p.getNumber() + " , "
 				+ p.getPatientId() + ") ";
 		String s1 = " SELECT * FROM Invoice WHERE "
-				+ " Date = \"" + date + "\" "
-				+ " Number = " + p.getNumber() + " "
+				+ " Date = \"" + date + "\" and "
+				+ " Number = " + p.getNumber() + " and "
 				+ " PatientId = " + p.getPatientId() + " ";
 		try {
 			pst = connection.prepareStatement(s);

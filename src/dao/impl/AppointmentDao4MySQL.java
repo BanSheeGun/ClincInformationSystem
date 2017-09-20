@@ -152,4 +152,22 @@ public class AppointmentDao4MySQL implements AppointmentDao {
 		return pgpm;
 	}
 
+	@Override
+	public boolean deleteAppointment(int apid) {
+		connection = JDBCUtils.getConnection();
+		boolean isDelete = false;
+		String s = " DELETE FROM Appointment WHERE AppointmentId = ?  ";
+		if (connection != null)
+			try {
+				pst = connection.prepareStatement(s);
+				pst.setInt(1, apid);
+				isDelete = pst.execute();
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				JDBCUtils.close(connection, pst, rs);
+			}
+		return isDelete;
+	}
+
 }

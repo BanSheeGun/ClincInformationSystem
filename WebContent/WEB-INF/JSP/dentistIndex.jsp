@@ -27,7 +27,7 @@ background: #FFF;
 }
 </style>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>病人信息</title>
+<title>医生信息</title>
 </head>
 <body>
 <h1 align="center"><font size="8" face="微软雅黑"> 牙医  </font></h1>
@@ -141,7 +141,7 @@ background: #FFF;
 		<%} else {
 			if (i.getStatus() == 1) {
 			%>
-			<a href="#"> 诊断  </a>
+			<a href="${pageContext.request.contextPath}/patientRecordServlet?op=new&did=<%=i.getDentistId() %>&aid=<%=i.getApporintmentId() %> "> 诊断  </a>
 			<% }else{ %>
 			已回绝
 		<%}} %>
@@ -181,7 +181,7 @@ background: #FFF;
 <table align="center" width="80%">
 <tr>
 	<th>就诊编号</th>
-	<th>牙医编号</th>
+	<th>病人编号</th>
 	<th>操作</th>
 </tr>
 <%
@@ -189,9 +189,9 @@ background: #FFF;
 %>
 	<tr>
 		<td><%=i.getPatientRecordId() %></td>
-		<td><%=i.getDentistId() %></td>
+		<td><%=i.getPatientId() %></td>
 		<td>
-			<a href="#">详细</a>
+			<a href="${pageContext.request.contextPath}/patientRecordServlet?oper=doc&op=view&prid=<%=i.getPatientRecordId() %>">详细</a>
 		</td>
 	</tr>
 <%} %>

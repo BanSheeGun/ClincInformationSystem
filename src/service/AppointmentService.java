@@ -19,4 +19,7 @@ public class AppointmentService {
 	public AppointmentPageModel queryAppointment(int start, String more) {
 		return adao.queryAppointment(start, more);
 	}
+	public boolean deleteAppointment(int apid) {
+		return adao.deleteAppointment(apid);
+	}
 }
